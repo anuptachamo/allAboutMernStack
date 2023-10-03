@@ -117,7 +117,45 @@ app.get ("/AllStudentsdetails/:id", async(req, res)=>{
     */
 }) 
 
+// Update students API
+app.patch("/AllStudentsdetails/:id", async (req, res)=>{
+    const id = req.params.id
 
+    const fullname = req.body.fullname
+    const address = req.body.address
+    const grade = req.body.grade
+    const rollno = req.body.rollno
+    const age = req.body.age
+    const contactno = req.body.contactno
+
+    //*Alternative (object destructuring)
+    // const {fullname, address, grade, rollno, age, contactno} = req.body
+
+    await Students.findByIdAndUpdate( id,{
+        fullname : fullname,
+        address: address,
+        grade : grade,
+        rollno : rollno,
+        age : age,
+        contactno : contactno
+    })
+
+    res.status(200).json({
+        message : "Students details Updated Successfully"
+    })
+
+})
+
+// DELETE API
+app.delete("/AllStudentsdetails/:id", async (req, res)=>{
+    const id = req.params.id
+
+    await Students.findByIdAndDelete(id)
+
+    res.status(200).json({
+        message : "Students details deleted Successfully"
+    })
+})
 
 
 
